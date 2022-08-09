@@ -39,6 +39,7 @@ const ShopPage = () => {
     
     return (
         <div className="shop-page">
+            <h1>Our Collections</h1>
             {
                 collections.map(({id, ...otherCollectionProps}) =>  (
                     

@@ -1,5 +1,5 @@
 import './homepage.style.scss'
-import DirectoryMenu from '../components/directory/directory-menu.component'
+import DirectoryMenu from './../../components/directory/directory-menu.component'
 
 const HomePage = () => (
     <div className="homepage">
