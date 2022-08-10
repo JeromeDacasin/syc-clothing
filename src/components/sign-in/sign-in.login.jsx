@@ -44,7 +44,7 @@ import './sign-in.style.scss';
 //                         type="email" 
 //                         value={this.state.email}
 //                         onChange={this.HandleChange}
-//                         required
+//                         
 //                     />
 
 //                     <label >Email</label>
@@ -54,7 +54,7 @@ import './sign-in.style.scss';
 //                         type="password" 
 //                         value={this.state.password} 
 //                         onChange={this.HandleChange}
-//                         required
+//                         
 //                     />
 //                     <label >Password</label>
 
@@ -67,21 +67,22 @@ import './sign-in.style.scss';
 
 
 const SignIn = () => {
-    let [value, setValue] = useState({email: '', password: ''});
+    let [inputField, setInputField] = useState({email: '', password: ''});
    
 
     const HandleSubmit = e => {
         e.preventDefault();
-
-        setValue = {email: '', password: ''}
+        
+        inputField = { email: '', password: ''}
+     
     }
 
     const HandleChange = e => {
 
-        let {value, name } = e.target
+        let { value, name } = e.target
+      
+        setInputField({ ...inputField, [name]: value})
 
-        setValue = ({ [name]: value})
-        
     }
 
     return (
@@ -92,9 +93,9 @@ const SignIn = () => {
             <form onSubmit={HandleSubmit}>
                 <FormInput 
                     name="email"
-                    type="email"
+                    type="email" 
                     label="Email"
-                    value={setValue.email}
+                    value={inputField.email || ''}
                     handleChange={HandleChange}
                     required
                 />
@@ -104,7 +105,7 @@ const SignIn = () => {
                     name="password" 
                     type="password" 
                     label="Password"
-                    value={setValue.password} 
+                    value={inputField.password || ''} 
                     handleChange={HandleChange}
                     required
                     autoComplete="true"

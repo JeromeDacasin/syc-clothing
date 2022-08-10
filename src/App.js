@@ -5,7 +5,7 @@ import ShopPage from './pages/shop/shop.component';
 import { Route, Routes } from 'react-router-dom';
 import Header from './components/header/header.component';
 import Login from './pages/LoginAndSignUp/login';
-import { auth } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { useEffect, useState } from 'react';
 
 
@@ -16,11 +16,23 @@ function App() {
   let [currentUser, setCurrentUser] = useState(null);
 
   useEffect( () => {
-    const unsubscribeFromAuth = auth.onAuthStateChanged( user => {
-        setCurrentUser(user);
+    const unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => {
 
-  
-     
+      if(userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+
+        userRef.onSnapshot( snapShot => {
+          
+       setCurrentUser({
+            id: snapShot.id,
+            ...snapShot.data()  
+          })
+          
+        })
+      } else {
+        setCurrentUser(userAuth)
+      }
+    
     })
     return unsubscribeFromAuth;
   }, [])
